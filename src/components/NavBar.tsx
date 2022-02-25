@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Algo, SettingsContext } from "../utils/AlgoContext";
 
 const NavBar = () => {
-	const { settings, setSettings } = useContext(SettingsContext);
+	const { settings, setSettings, sort } = useContext(SettingsContext);
 	const onArrayLengthChange: React.ChangeEventHandler<
 		HTMLInputElement
 	> = event => {
@@ -19,10 +19,7 @@ const NavBar = () => {
 		setSettings(prev => ({ ...prev, delay: +event.target.value }));
 	};
 
-	const onAlgoChange = (
-		event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-		type: Algo
-	) => {
+	const onAlgoChange = (type: Algo) => {
 		if (!setSettings) {
 			return;
 		}
@@ -37,7 +34,7 @@ const NavBar = () => {
 						className={`border-solid border-2 border-black shadow-md py-2 px-4 transition-all active:scale-95 ${
 							settings.algoType === "insertion sort" && "text-blue-800"
 						}`}
-						onClick={event => onAlgoChange(event, "insertion sort")}
+						onClick={() => onAlgoChange("insertion sort")}
 					>
 						Insertion Sort
 					</button>
@@ -45,13 +42,15 @@ const NavBar = () => {
 						className={`border-solid border-2 border-black shadow-md py-2 px-4 transition-all active:scale-95 ${
 							settings.algoType === "merge sort" && "text-blue-800"
 						}`}
-						onClick={event => onAlgoChange(event, "merge sort")}
+						onClick={() => onAlgoChange("merge sort")}
 					>
 						Merge Sort
 					</button>
 				</div>
 
-				<button className="underline">Sort!</button>
+				<button className="underline" onClick={() => sort(settings.algoType)}>
+					Sort!
+				</button>
 			</div>
 			<div className="flex flex-col items-center w-full pb-3">
 				<label htmlFor="items-amount">

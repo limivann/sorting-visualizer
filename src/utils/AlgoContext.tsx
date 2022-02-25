@@ -1,4 +1,5 @@
 import React, { useState, createContext, useEffect } from "react";
+import { getInsertionSortAnimations } from "./algorithms";
 
 interface Props {
 	children: React.ReactNode;
@@ -22,10 +23,12 @@ const initVals: Settings = {
 type SettingsContextType = {
 	settings: Settings;
 	setSettings?: React.Dispatch<React.SetStateAction<Settings>>;
+	sort: (algoType: Algo) => void;
 };
 
 export const SettingsContext = createContext<SettingsContextType>({
 	settings: initVals,
+	sort: algoType => {},
 });
 
 type ItemsContextType = {
@@ -47,9 +50,22 @@ const AlgoContext: React.FC<Props> = ({ children }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [settings.arrayLength]);
 
+	const sort = (algoType: Algo) => {
+		switch (algoType) {
+			case "insertion sort":
+				console.log("Starting inserting sort");
+				const [newArray, animationArray] = getInsertionSortAnimations(items);
+				console.log(newArray);
+				break;
+			case "merge sort":
+				break;
+			default:
+				break;
+		}
+	};
 	return (
 		<ItemsContext.Provider value={{ items, setItems }}>
-			<SettingsContext.Provider value={{ settings, setSettings }}>
+			<SettingsContext.Provider value={{ settings, setSettings, sort }}>
 				{children}
 			</SettingsContext.Provider>
 		</ItemsContext.Provider>
