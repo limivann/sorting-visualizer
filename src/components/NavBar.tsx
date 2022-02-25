@@ -1,14 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Algo, SettingsContext } from "../utils/AlgoContext";
 
 const NavBar = () => {
-	const { settings, setSettings, sort } = useContext(SettingsContext);
+	const { settings, setSettings, sort, isSorting, setIsSorting } =
+		useContext(SettingsContext);
+
 	const onArrayLengthChange: React.ChangeEventHandler<
 		HTMLInputElement
 	> = event => {
-		if (!setSettings) {
+		if (!setSettings || !setIsSorting) {
 			return;
 		}
+		setIsSorting(false);
 		setSettings(prev => ({ ...prev, arrayLength: +event.target.value * 5 }));
 	};
 
@@ -24,6 +27,16 @@ const NavBar = () => {
 			return;
 		}
 		setSettings(prev => ({ ...prev, algoType: type }));
+	};
+
+	const handleSortEvent: React.MouseEventHandler<HTMLButtonElement> = () => {
+		if (!setIsSorting) {
+			return;
+		}
+		if (!isSorting) {
+			sort(settings.algoType);
+			setIsSorting(true);
+		}
 	};
 
 	return (
@@ -48,7 +61,7 @@ const NavBar = () => {
 					</button>
 				</div>
 
-				<button className="underline" onClick={() => sort(settings.algoType)}>
+				<button className="underline" onClick={handleSortEvent}>
 					Sort!
 				</button>
 			</div>

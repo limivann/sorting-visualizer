@@ -24,11 +24,14 @@ type SettingsContextType = {
 	settings: Settings;
 	setSettings?: React.Dispatch<React.SetStateAction<Settings>>;
 	sort: (algoType: Algo) => void;
+	isSorting: boolean;
+	setIsSorting?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const SettingsContext = createContext<SettingsContextType>({
 	settings: initVals,
 	sort: algoType => {},
+	isSorting: false,
 });
 
 type ItemsContextType = {
@@ -40,6 +43,7 @@ export const ItemsContext = createContext<ItemsContextType>({ items: [] });
 const AlgoContext: React.FC<Props> = ({ children }) => {
 	const [settings, setSettings] = useState<Settings>(initVals);
 	const [items, setItems] = useState<number[]>([]);
+	const [isSorting, setIsSorting] = useState<boolean>(false);
 
 	useEffect(() => {
 		const randomNumbers: number[] = [];
@@ -55,7 +59,9 @@ const AlgoContext: React.FC<Props> = ({ children }) => {
 			case "insertion sort":
 				console.log("Starting inserting sort");
 				const { newArray, animationArray } = getInsertionSortAnimations(items);
-				animateDivs(newArray, animationArray);
+				animateDivs(newArray, animationArray).then(() => {
+					setIsSorting(false);
+				});
 				break;
 			case "merge sort":
 				break;
@@ -64,37 +70,44 @@ const AlgoContext: React.FC<Props> = ({ children }) => {
 		}
 	};
 
-	const animateDivs = (newArray: number[], animationArray: number[][]) => {
-		animationArray.forEach(([first, second], index) => {
-			const div1 = document.getElementById(`${first}`);
-			const div2 = document.getElementById(`${second}`);
-			if (!div1 || !div2) {
-				return;
-			}
-			setTimeout(() => {
-				div1.style.backgroundColor = "red";
-				div2.style.backgroundColor = "red";
-				// swap heights
-				const div1Height = div1.style.height;
-				div1.style.height = div2.style.height;
-				div2.style.height = div1Height;
-
-				// set back to original color
+	const animateDivs = async (
+		newArray: number[],
+		animationArray: number[][]
+	): Promise<number> => {
+		return new Promise<number>(resolve => {
+			animationArray.forEach(([first, second], index) => {
+				const div1 = document.getElementById(`${first}`);
+				const div2 = document.getElementById(`${second}`);
+				if (!div1 || !div2) {
+					return;
+				}
 				setTimeout(() => {
-					div1.style.backgroundColor = "black";
-					div2.style.backgroundColor = "black";
-					if (index === animationArray.length - 1) {
-						setItems(newArray);
-						// DONE
-					}
-				}, settings.delay * 3);
-			}, settings.delay * index * 3);
-			// index = index of animate array -> larger index will be animate last
+					div1.style.backgroundColor = "red";
+					div2.style.backgroundColor = "red";
+					// swap heights
+					const div1Height = div1.style.height;
+					div1.style.height = div2.style.height;
+					div2.style.height = div1Height;
+
+					// set back to original color
+					setTimeout(() => {
+						div1.style.backgroundColor = "black";
+						div2.style.backgroundColor = "black";
+						if (index === animationArray.length - 1) {
+							setItems(newArray);
+							resolve(1);
+						}
+					}, settings.delay * 3);
+				}, settings.delay * index * 3);
+				// index = index of animate array -> larger index will be animate last
+			});
 		});
 	};
 	return (
 		<ItemsContext.Provider value={{ items, setItems }}>
-			<SettingsContext.Provider value={{ settings, setSettings, sort }}>
+			<SettingsContext.Provider
+				value={{ settings, setSettings, sort, isSorting, setIsSorting }}
+			>
 				{children}
 			</SettingsContext.Provider>
 		</ItemsContext.Provider>
