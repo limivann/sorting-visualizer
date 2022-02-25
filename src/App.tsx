@@ -3,10 +3,10 @@ import { NavBar, Main } from "./components";
 
 function App() {
 	return (
-		<div>
+		<main className="grid grid-rows-6 w-screen h-screen">
 			<NavBar />
 			<Main />
-		</div>
+		</main>
 	);
 }
 
