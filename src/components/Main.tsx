@@ -7,15 +7,15 @@ const Main = () => {
 	return (
 		<section className="row-span-5">
 			<div className="flex flex-row w-full h-full items-end overflow-hidden">
-				{items.map((item: number, idx: number) => (
+				{items.map((item: number, index: number) => (
 					<div
-						key={`${item}-${settings.arrayLength}-${idx}`}
+						key={`${item}-${settings.arrayLength}-${index}`}
 						className="flex-1"
 						style={{
 							backgroundColor: "black",
 							height: `${item / 7}%`,
 						}}
-						id={`${idx}`}
+						id={`${index}`}
 					></div>
 				))}
 			</div>
