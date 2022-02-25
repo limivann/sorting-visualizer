@@ -34,13 +34,17 @@ const NavBar = () => {
 			<div className="flex flex-row items-center justify-center w-full my-2 gap-5">
 				<div>
 					<button
-						className="border-solid border-2 border-black shadow-md py-2 px-4 transition-all active:scale-95"
+						className={`border-solid border-2 border-black shadow-md py-2 px-4 transition-all active:scale-95 ${
+							settings.algoType === "insertion sort" && "text-blue-800"
+						}`}
 						onClick={event => onAlgoChange(event, "insertion sort")}
 					>
 						Insertion Sort
 					</button>
 					<button
-						className="border-solid border-2 border-black shadow-md py-2 px-4 transition-all active:scale-95"
+						className={`border-solid border-2 border-black shadow-md py-2 px-4 transition-all active:scale-95 ${
+							settings.algoType === "merge sort" && "text-blue-800"
+						}`}
 						onClick={event => onAlgoChange(event, "merge sort")}
 					>
 						Merge Sort
