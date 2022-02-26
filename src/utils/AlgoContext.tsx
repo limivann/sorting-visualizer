@@ -18,7 +18,7 @@ interface Settings {
 }
 
 const initVals: Settings = {
-	algoType: "insertion sort",
+	algoType: "bubble sort",
 	arrayLength: 25,
 	delay: 3,
 };

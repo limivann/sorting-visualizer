@@ -47,7 +47,8 @@ const NavBar = () => {
 				<div>
 					<button
 						className={`border-solid border-2 border-black shadow-md py-2 px-4 transition-all active:scale-95 ${
-							settings.algoType === "bubble sort" && "text-blue-800"
+							settings.algoType === "bubble sort" &&
+							"text-red-400 border-red-400"
 						}`}
 						onClick={() => onAlgoChange("bubble sort")}
 					>
@@ -55,7 +56,8 @@ const NavBar = () => {
 					</button>
 					<button
 						className={`border-solid border-2 border-black shadow-md py-2 px-4 transition-all active:scale-95 ${
-							settings.algoType === "insertion sort" && "text-blue-800"
+							settings.algoType === "insertion sort" &&
+							"text-red-400 border-red-400"
 						}`}
 						onClick={() => onAlgoChange("insertion sort")}
 					>
@@ -63,7 +65,8 @@ const NavBar = () => {
 					</button>
 					<button
 						className={`border-solid border-2 border-black shadow-md py-2 px-4 transition-all active:scale-95 ${
-							settings.algoType === "merge sort" && "text-blue-800"
+							settings.algoType === "merge sort" &&
+							"text-red-400 border-red-400"
 						}`}
 						onClick={() => onAlgoChange("merge sort")}
 					>
