@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Algo, SettingsContext } from "../utils/AlgoContext";
 
 const NavBar = () => {
