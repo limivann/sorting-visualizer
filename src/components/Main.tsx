@@ -10,7 +10,7 @@ const Main = () => {
 				{items.map((item: number, index: number) => (
 					<div
 						key={`${item}-${settings.arrayLength}-${index}`}
-						className="flex-1"
+						className="flex-1 border border-white"
 						style={{
 							backgroundColor: "black",
 							height: `${item / 7}%`,

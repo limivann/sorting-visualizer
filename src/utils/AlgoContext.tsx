@@ -1,5 +1,8 @@
 import React, { useState, createContext, useEffect } from "react";
-import { getInsertionSortAnimations } from "./algorithms";
+import {
+	getInsertionSortAnimations,
+	getMergeSortAnimations,
+} from "./algorithms";
 
 interface Props {
 	children: React.ReactNode;
@@ -59,18 +62,26 @@ const AlgoContext: React.FC<Props> = ({ children }) => {
 			case "insertion sort":
 				console.log("Starting inserting sort");
 				const { newArray, animationArray } = getInsertionSortAnimations(items);
-				animateDivs(newArray, animationArray).then(() => {
+				animateInsertion(newArray, animationArray).then(() => {
 					setIsSorting(false);
 				});
 				break;
 			case "merge sort":
+				console.log("Starting merge sort");
+				const animationArrayMS: number[][] = [];
+				const copiedArray = [...items];
+				getMergeSortAnimations(copiedArray, animationArrayMS);
+				console.log(animationArrayMS);
+				animateMerge(copiedArray, animationArrayMS).then(() => {
+					setIsSorting(false);
+				});
 				break;
 			default:
 				break;
 		}
 	};
 
-	const animateDivs = async (
+	const animateInsertion = async (
 		newArray: number[],
 		animationArray: number[][]
 	): Promise<number> => {
@@ -95,7 +106,36 @@ const AlgoContext: React.FC<Props> = ({ children }) => {
 						div2.style.backgroundColor = "black";
 						if (index === animationArray.length - 1) {
 							setItems(newArray);
-							resolve(1);
+							resolve(0);
+						}
+					}, settings.delay * 3);
+				}, settings.delay * index * 3);
+				// index = index of animate array -> larger index will be animate last
+			});
+		});
+	};
+
+	const animateMerge = async (
+		newArray: number[],
+		animationArray: number[][]
+	): Promise<number> => {
+		return new Promise<number>(resolve => {
+			animationArray.forEach(([newHeight, idx], index) => {
+				const div = document.getElementById(`${idx}`);
+				if (!div) {
+					return;
+				}
+				setTimeout(() => {
+					div.style.backgroundColor = "red";
+					// swap heights
+					div.style.height = `${newHeight / 7}%`;
+
+					// set back to original color
+					setTimeout(() => {
+						div.style.backgroundColor = "black";
+						if (index === animationArray.length - 1) {
+							setItems(newArray);
+							resolve(0);
 						}
 					}, settings.delay * 3);
 				}, settings.delay * index * 3);

@@ -30,7 +30,9 @@ const NavBar = () => {
 	};
 
 	const handleSortEvent: React.MouseEventHandler<HTMLButtonElement> = () => {
+		// TODO: fix sorting bug
 		if (!setIsSorting) {
+			console.log("WTF");
 			return;
 		}
 		if (!isSorting) {
