@@ -1,5 +1,6 @@
 import React, { useState, createContext, useEffect } from "react";
 import {
+	getBubbleSortAnimations,
 	getInsertionSortAnimations,
 	getMergeSortAnimations,
 } from "./algorithms";
@@ -8,7 +9,7 @@ interface Props {
 	children: React.ReactNode;
 }
 
-export type Algo = "merge sort" | "insertion sort";
+export type Algo = "merge sort" | "insertion sort" | "bubble sort";
 
 interface Settings {
 	algoType: Algo;
@@ -62,7 +63,7 @@ const AlgoContext: React.FC<Props> = ({ children }) => {
 			case "insertion sort":
 				console.log("Starting inserting sort");
 				const { newArray, animationArray } = getInsertionSortAnimations(items);
-				animateInsertion(newArray, animationArray).then(() => {
+				animateSwapDivs(newArray, animationArray).then(() => {
 					setIsSorting(false);
 				});
 				break;
@@ -71,8 +72,16 @@ const AlgoContext: React.FC<Props> = ({ children }) => {
 				const animationArrayMS: number[][] = [];
 				const copiedArray = [...items];
 				getMergeSortAnimations(copiedArray, animationArrayMS);
-				console.log(animationArrayMS);
 				animateMerge(copiedArray, animationArrayMS).then(() => {
+					setIsSorting(false);
+				});
+				break;
+			case "bubble sort":
+				console.log("Starting bubble sort");
+				const animationArrayBS: number[][] = [];
+				const sortedArrayBS = [...items];
+				getBubbleSortAnimations(sortedArrayBS, animationArrayBS);
+				animateSwapDivs(sortedArrayBS, animationArrayBS).then(() => {
 					setIsSorting(false);
 				});
 				break;
@@ -81,7 +90,7 @@ const AlgoContext: React.FC<Props> = ({ children }) => {
 		}
 	};
 
-	const animateInsertion = async (
+	const animateSwapDivs = async (
 		newArray: number[],
 		animationArray: number[][]
 	): Promise<number> => {

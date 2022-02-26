@@ -1,4 +1,9 @@
+import { getBubbleSortAnimations } from "./bubbleSort";
 import { getInsertionSortAnimations } from "./insertionSort";
 import { getMergeSortAnimations } from "./mergeSort";
 
-export { getInsertionSortAnimations, getMergeSortAnimations };
+export {
+	getBubbleSortAnimations,
+	getInsertionSortAnimations,
+	getMergeSortAnimations,
+};
