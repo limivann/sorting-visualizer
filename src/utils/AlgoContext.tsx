@@ -5,6 +5,7 @@ import {
 	getMergeSortAnimations,
 } from "./algorithms";
 
+import { colors } from "../constants";
 interface Props {
 	children: React.ReactNode;
 }
@@ -102,8 +103,8 @@ const AlgoContext: React.FC<Props> = ({ children }) => {
 					return;
 				}
 				setTimeout(() => {
-					div1.style.backgroundColor = "red";
-					div2.style.backgroundColor = "red";
+					div1.style.backgroundColor = colors.swappedBarColor;
+					div2.style.backgroundColor = colors.swappedBarColor;
 					// swap heights
 					const div1Height = div1.style.height;
 					div1.style.height = div2.style.height;
@@ -111,8 +112,8 @@ const AlgoContext: React.FC<Props> = ({ children }) => {
 
 					// set back to original color
 					setTimeout(() => {
-						div1.style.backgroundColor = "black";
-						div2.style.backgroundColor = "black";
+						div1.style.backgroundColor = colors.primaryBarColor;
+						div2.style.backgroundColor = colors.primaryBarColor;
 						if (index === animationArray.length - 1) {
 							setItems(newArray);
 							resolve(0);
@@ -135,13 +136,13 @@ const AlgoContext: React.FC<Props> = ({ children }) => {
 					return;
 				}
 				setTimeout(() => {
-					div.style.backgroundColor = "red";
+					div.style.backgroundColor = colors.swappedBarColor;
 					// swap heights
-					div.style.height = `${newHeight / 7}%`;
+					div.style.height = `${newHeight / 6}%`;
 
 					// set back to original color
 					setTimeout(() => {
-						div.style.backgroundColor = "black";
+						div.style.backgroundColor = colors.primaryBarColor;
 						if (index === animationArray.length - 1) {
 							setItems(newArray);
 							resolve(0);

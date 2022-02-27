@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Algo, SettingsContext } from "../utils/AlgoContext";
+import { colors } from "../constants";
 
 const NavBar = () => {
 	const { settings, setSettings, sort, isSorting, setIsSorting } =
@@ -42,11 +43,14 @@ const NavBar = () => {
 	};
 
 	return (
-		<nav className="w-screen h-fit grid grid-flow-row bg-gray-200">
-			<div className="flex flex-row items-center justify-center w-full my-2 gap-5">
-				<div>
+		<nav
+			className="w-screen text-white py-2 flex flex-row justify-center items-center pb-5"
+			style={{ backgroundColor: colors.navBarBgColor }}
+		>
+			<div className="flex flex-row basis-1/2 items-center justify-center my-2 gap-10">
+				<div className="flex flex-row items-center justify-center gap-10 ">
 					<button
-						className={`border-solid border-2 border-black shadow-md py-2 px-4 transition-all active:scale-95 ${
+						className={`border-solid border-2 shadow-md py-2 px-4 transition-all active:scale-95 ${
 							settings.algoType === "bubble sort" &&
 							"text-red-400 border-red-400"
 						}`}
@@ -55,7 +59,7 @@ const NavBar = () => {
 						Bubble Sort
 					</button>
 					<button
-						className={`border-solid border-2 border-black shadow-md py-2 px-4 transition-all active:scale-95 ${
+						className={`border-solid border-2 shadow-md py-2 px-4 transition-all active:scale-95 ${
 							settings.algoType === "insertion sort" &&
 							"text-red-400 border-red-400"
 						}`}
@@ -64,7 +68,7 @@ const NavBar = () => {
 						Insertion Sort
 					</button>
 					<button
-						className={`border-solid border-2 border-black shadow-md py-2 px-4 transition-all active:scale-95 ${
+						className={`border-solid border-2 shadow-md py-2 px-4 transition-all active:scale-95 ${
 							settings.algoType === "merge sort" &&
 							"text-red-400 border-red-400"
 						}`}
@@ -73,14 +77,10 @@ const NavBar = () => {
 						Merge Sort
 					</button>
 				</div>
-
-				<button className="underline" onClick={handleSortEvent}>
-					Sort!
-				</button>
 			</div>
-			<div className="flex flex-row md:flex-col items-center w-full pb-3 ">
+			<div className="flex flex-col basis-1/4 items-center gap-2">
 				<div className="flex flex-col items-center w-full">
-					<label htmlFor="items-amount">
+					<label htmlFor="items-amount" className="mb-2">
 						Array Length: {settings.arrayLength}
 					</label>
 					<input
@@ -95,7 +95,9 @@ const NavBar = () => {
 					></input>
 				</div>
 				<div className="flex flex-col items-center w-full">
-					<label htmlFor="speed">Speed: {settings.speed}</label>
+					<label htmlFor="speed" className="mb-2">
+						Speed: {settings.speed}
+					</label>
 					<input
 						type="range"
 						name="speed"
@@ -107,6 +109,11 @@ const NavBar = () => {
 						onChange={onSpeedChange}
 					></input>
 				</div>
+			</div>
+			<div className="flex justify-center items-center basis-1/4">
+				<button className="hover:text-red-400" onClick={handleSortEvent}>
+					Sort!
+				</button>
 			</div>
 		</nav>
 	);
