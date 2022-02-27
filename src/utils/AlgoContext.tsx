@@ -14,13 +14,13 @@ export type Algo = "merge sort" | "insertion sort" | "bubble sort";
 interface Settings {
 	algoType: Algo;
 	arrayLength: number;
-	delay: number;
+	speed: number;
 }
 
 const initVals: Settings = {
 	algoType: "bubble sort",
-	arrayLength: 25,
-	delay: 3,
+	arrayLength: 120,
+	speed: 2,
 };
 
 // contexts
@@ -117,8 +117,8 @@ const AlgoContext: React.FC<Props> = ({ children }) => {
 							setItems(newArray);
 							resolve(0);
 						}
-					}, settings.delay * 3);
-				}, settings.delay * index * 3);
+					}, settings.speed * 3);
+				}, settings.speed * index * 3);
 				// index = index of animate array -> larger index will be animate last
 			});
 		});
@@ -146,8 +146,8 @@ const AlgoContext: React.FC<Props> = ({ children }) => {
 							setItems(newArray);
 							resolve(0);
 						}
-					}, settings.delay * 3);
-				}, settings.delay * index * 3);
+					}, settings.speed * 3);
+				}, settings.speed * index * 3);
 				// index = index of animate array -> larger index will be animate last
 			});
 		});

@@ -15,11 +15,11 @@ const NavBar = () => {
 		setSettings(prev => ({ ...prev, arrayLength: +event.target.value * 5 }));
 	};
 
-	const onDelayChange: React.ChangeEventHandler<HTMLInputElement> = event => {
+	const onSpeedChange: React.ChangeEventHandler<HTMLInputElement> = event => {
 		if (!setSettings) {
 			return;
 		}
-		setSettings(prev => ({ ...prev, delay: +event.target.value }));
+		setSettings(prev => ({ ...prev, speed: +event.target.value }));
 	};
 
 	const onAlgoChange = (type: Algo) => {
@@ -90,19 +90,21 @@ const NavBar = () => {
 						className="w-full max-w-2xl"
 						defaultValue={25}
 						min={1}
+						max={100}
 						onChange={onArrayLengthChange}
 					></input>
 				</div>
 				<div className="flex flex-col items-center w-full">
-					<label htmlFor="delay">Delay: {settings.delay}</label>
+					<label htmlFor="speed">Speed: {settings.speed}</label>
 					<input
 						type="range"
-						name="delay"
-						id="delay"
+						name="speed"
+						id="speed"
 						className="w-full max-w-2xl"
-						defaultValue={15}
+						defaultValue={2}
 						min={1}
-						onChange={onDelayChange}
+						max={10}
+						onChange={onSpeedChange}
 					></input>
 				</div>
 			</div>
