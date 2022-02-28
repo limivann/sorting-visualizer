@@ -10,7 +10,11 @@ interface Props {
 	children: React.ReactNode;
 }
 
-export type Algo = "merge sort" | "insertion sort" | "bubble sort";
+export type Algo =
+	| "merge sort"
+	| "insertion sort"
+	| "bubble sort"
+	| "selection sort";
 
 interface Settings {
 	algoType: Algo;
@@ -85,6 +89,9 @@ const AlgoContext: React.FC<Props> = ({ children }) => {
 				animateSwapDivs(sortedArrayBS, animationArrayBS).then(() => {
 					setIsSorting(false);
 				});
+				break;
+			case "selection sort":
+				console.log("Starting selection sort");
 				break;
 			default:
 				break;

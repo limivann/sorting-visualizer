@@ -60,6 +60,15 @@ const NavBar = () => {
 					</button>
 					<button
 						className={`border-solid border-2 shadow-md py-2 px-4 transition-all active:scale-95 ${
+							settings.algoType === "selection sort" &&
+							"text-red-400 border-red-400"
+						}`}
+						onClick={() => onAlgoChange("selection sort")}
+					>
+						Selection Sort
+					</button>
+					<button
+						className={`border-solid border-2 shadow-md py-2 px-4 transition-all active:scale-95 ${
 							settings.algoType === "insertion sort" &&
 							"text-red-400 border-red-400"
 						}`}
