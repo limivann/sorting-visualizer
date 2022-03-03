@@ -20,12 +20,14 @@ interface Settings {
 	algoType: Algo;
 	arrayLength: number;
 	speed: number;
+	shuffleTrigger: boolean;
 }
 
 const initVals: Settings = {
 	algoType: "bubble sort",
 	arrayLength: 120,
 	speed: 2,
+	shuffleTrigger: false,
 };
 
 // contexts
@@ -61,7 +63,7 @@ const AlgoContext: React.FC<Props> = ({ children }) => {
 		}
 		setItems(randomNumbers);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [settings.arrayLength]);
+	}, [settings.arrayLength, settings.shuffleTrigger]);
 
 	const sort = (algoType: Algo) => {
 		switch (algoType) {
