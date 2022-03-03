@@ -69,7 +69,9 @@ const NavBar = () => {
 		>
 			<div className="flex justify-center items-center basis-1/4 flex-col gap-2">
 				<button
-					className={!isSorting ? "hover:text-red-400" : ""}
+					className={
+						isSorted ? "hidden" : !isSorting ? "hover:text-red-400" : ""
+					}
 					onClick={handleSortEvent}
 					disabled={isSorting}
 				>
