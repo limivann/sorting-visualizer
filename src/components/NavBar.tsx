@@ -3,17 +3,25 @@ import { Algo, SettingsContext } from "../utils/AlgoContext";
 import { colors } from "../constants";
 
 const NavBar = () => {
-	const { settings, setSettings, sort, isSorting, setIsSorting } =
-		useContext(SettingsContext);
+	const {
+		settings,
+		setSettings,
+		sort,
+		isSorting,
+		setIsSorting,
+		isSorted,
+		setIsSorted,
+	} = useContext(SettingsContext);
 
 	const onArrayLengthChange: React.ChangeEventHandler<
 		HTMLInputElement
 	> = event => {
-		if (!setSettings || !setIsSorting) {
+		if (!setSettings || !setIsSorting || !setIsSorted) {
 			return;
 		}
 		setIsSorting(false);
 		setSettings(prev => ({ ...prev, arrayLength: +event.target.value * 5 }));
+		setIsSorted(false);
 	};
 
 	const onSpeedChange: React.ChangeEventHandler<HTMLInputElement> = event => {
@@ -31,8 +39,12 @@ const NavBar = () => {
 	};
 
 	const handleSortEvent: React.MouseEventHandler<HTMLButtonElement> = () => {
-		if (!setIsSorting) {
+		if (!setIsSorting || !setIsSorted) {
 			console.log("WTF");
+			return;
+		}
+		if (isSorted) {
+			console.log("ARRAY IS SORTED");
 			return;
 		}
 		if (!isSorting) {
@@ -42,11 +54,12 @@ const NavBar = () => {
 	};
 
 	const shuffleArray: React.MouseEventHandler<HTMLButtonElement> = event => {
-		if (!setSettings || !setIsSorting) {
+		if (!setSettings || !setIsSorting || !setIsSorted) {
 			return;
 		}
 		setIsSorting(false);
 		setSettings(prev => ({ ...prev, shuffleTrigger: !prev.shuffleTrigger }));
+		setIsSorted(false);
 	};
 
 	return (
@@ -55,10 +68,18 @@ const NavBar = () => {
 			style={{ backgroundColor: colors.navBarBgColor }}
 		>
 			<div className="flex justify-center items-center basis-1/4 flex-col gap-2">
-				<button className="hover:text-red-400" onClick={handleSortEvent}>
-					Sort!
+				<button
+					className={!isSorting ? "hover:text-red-400" : ""}
+					onClick={handleSortEvent}
+					disabled={isSorting}
+				>
+					{!isSorting ? "Sort!" : "Sorting..."}
 				</button>
-				<button className="hover:text-red-400" onClick={shuffleArray}>
+				<button
+					className={!isSorting ? "hover:text-red-400" : "hidden"}
+					onClick={shuffleArray}
+					disabled={isSorting}
+				>
 					Generate New Array!
 				</button>
 			</div>
@@ -76,6 +97,7 @@ const NavBar = () => {
 						min={1}
 						max={100}
 						onChange={onArrayLengthChange}
+						disabled={isSorting}
 					></input>
 				</div>
 				<div className="flex flex-col items-center w-full">
@@ -91,6 +113,7 @@ const NavBar = () => {
 						min={1}
 						max={10}
 						onChange={onSpeedChange}
+						disabled={isSorting}
 					></input>
 				</div>
 			</div>
@@ -106,7 +129,7 @@ const NavBar = () => {
 					>
 						Bubble Sort
 					</button>
-					<button
+					{/* <button
 						className={`border-solid border-2 shadow-md py-2 px-4 transition-all active:scale-95 ${
 							settings.algoType === "selection sort" &&
 							"text-red-400 border-red-400"
@@ -114,7 +137,7 @@ const NavBar = () => {
 						onClick={() => onAlgoChange("selection sort")}
 					>
 						Selection Sort
-					</button>
+					</button> */}
 					<button
 						className={`border-solid border-2 shadow-md py-2 px-4 transition-all active:scale-95 ${
 							settings.algoType === "insertion sort" &&
