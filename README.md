@@ -4,6 +4,12 @@
 
 I built this application because I was fascinated by sorting algorithms, and I wanted to visualize them in action
 
+#### <b>Sorting Algorithms Visualized</b>
+
+1. Bubble Sort
+2. Insertion Sort
+3. Merge Sort
+
 ## Run
 
 To make it run properly, clone this repo and make sure you have the following prerequisites.
