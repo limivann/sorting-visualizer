@@ -2,7 +2,7 @@
 
 ## React TypeScript app to visualize sorting algorithm with animations
 
-I built this application because I was fascinated by sorting algorithms, and I wanted to visualize them in action
+I built this application because I was fascinated by sorting algorithms, and I wanted to visualize them in action. 
 
 #### <b>Sorting Algorithms Visualized</b>
 
