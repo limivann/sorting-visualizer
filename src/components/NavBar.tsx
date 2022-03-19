@@ -1,13 +1,10 @@
 import React, { useContext } from "react";
 import { Algo, SettingsContext } from "../utils/AlgoContext";
 import { colors } from "../constants";
-import { createPopper } from "@popperjs/core";
-import type { VirtualElement } from "@popperjs/core";
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment } from "react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
-import AnimatedText from "react-animated-text-content";
-const { Wave, Random } = require("react-animated-text");
+const { Wave } = require("react-animated-text");
 
 const NavBar = () => {
 	const {
@@ -69,25 +66,6 @@ const NavBar = () => {
 		setIsSorted(false);
 	};
 
-	const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
-	const btnDropdownRef: React.RefObject<Element | VirtualElement> =
-		React.createRef();
-	const popoverDropdownRef: React.RefObject<HTMLElement> = React.createRef();
-	const openDropdownPopover = () => {
-		if (btnDropdownRef.current == null || popoverDropdownRef.current == null) {
-			return;
-		}
-		createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
-			placement: "bottom-start",
-		});
-		setDropdownPopoverShow(true);
-	};
-	const closeDropdownPopover = () => {
-		setDropdownPopoverShow(false);
-	};
-
-	let bgColor;
-
 	return (
 		<nav
 			className="w-screen text-white py-2 flex flex-row justify-center items-center pb-5 px-28"
@@ -95,7 +73,7 @@ const NavBar = () => {
 		>
 			<div className="flex basis-2/6 flex-col">
 				<a
-					href="#"
+					href="/#"
 					className="flex text-xl font-semibold tracking-widest uppercase rounded-lg text-white focus:outline-none focus:shadow-outline uppercase mb-2"
 				>
 					SORTING VIZUALIZER
@@ -104,8 +82,8 @@ const NavBar = () => {
 					<Wave
 						text={settings.algoType}
 						effect="stretch"
-						effectChange={10}
-						effectDuration={0.1}
+						effectChange={2}
+						effectDuration={0.5}
 					/>
 				</div>
 			</div>
@@ -199,7 +177,7 @@ const NavBar = () => {
 				<Menu as="div" className="relative inline-block text-left">
 					<div>
 						<Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-black rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-							Options
+							Algorithms
 							<ChevronDownIcon
 								className="w-5 h-5 ml-2 -mr-1 text-violet-200 hover:text-violet-100"
 								aria-hidden="true"
