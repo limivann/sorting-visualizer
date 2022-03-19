@@ -1,6 +1,13 @@
 import React, { useContext } from "react";
 import { Algo, SettingsContext } from "../utils/AlgoContext";
 import { colors } from "../constants";
+import { createPopper } from "@popperjs/core";
+import type { VirtualElement } from "@popperjs/core";
+import { Menu, Transition } from "@headlessui/react";
+import { Fragment, useEffect, useRef, useState } from "react";
+import { ChevronDownIcon } from "@heroicons/react/solid";
+import AnimatedText from "react-animated-text-content";
+const { Wave, Random } = require("react-animated-text");
 
 const NavBar = () => {
 	const {
@@ -62,39 +69,57 @@ const NavBar = () => {
 		setIsSorted(false);
 	};
 
+	const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
+	const btnDropdownRef: React.RefObject<Element | VirtualElement> =
+		React.createRef();
+	const popoverDropdownRef: React.RefObject<HTMLElement> = React.createRef();
+	const openDropdownPopover = () => {
+		if (btnDropdownRef.current == null || popoverDropdownRef.current == null) {
+			return;
+		}
+		createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
+			placement: "bottom-start",
+		});
+		setDropdownPopoverShow(true);
+	};
+	const closeDropdownPopover = () => {
+		setDropdownPopoverShow(false);
+	};
+
+	let bgColor;
+
 	return (
 		<nav
-			className="w-screen text-white py-2 flex flex-row justify-center items-center pb-5"
+			className="w-screen text-white py-2 flex flex-row justify-center items-center pb-5 px-28"
 			style={{ backgroundColor: colors.navBarBgColor }}
 		>
-			<div className="flex justify-center items-center basis-1/4 flex-col gap-2">
-				<button
-					className={
-						isSorted ? "hidden" : !isSorting ? "hover:text-red-400" : ""
-					}
-					onClick={handleSortEvent}
-					disabled={isSorting}
+			<div className="flex basis-2/6 flex-col">
+				<a
+					href="#"
+					className="flex text-xl font-semibold tracking-widest uppercase rounded-lg text-white focus:outline-none focus:shadow-outline uppercase mb-2"
 				>
-					{!isSorting ? "Sort!" : "Sorting..."}
-				</button>
-				<button
-					className={!isSorting ? "hover:text-red-400" : "hidden"}
-					onClick={shuffleArray}
-					disabled={isSorting}
-				>
-					Generate New Array!
-				</button>
+					SORTING VIZUALIZER
+				</a>
+				<div className="text-red-600 tracking-widest uppercase text-sm">
+					<Wave
+						text={settings.algoType}
+						effect="stretch"
+						effectChange={10}
+						effectDuration={0.1}
+					/>
+				</div>
 			</div>
-			<div className="flex flex-col basis-1/4 items-center gap-2 justify-center">
-				<div className="flex flex-col items-center w-full">
-					<label htmlFor="items-amount" className="mb-2">
+
+			<div className="flex flex-row basis-2/6 items-center gap-10 justify-center">
+				<div className="flex flex-col items-center w-full gap-2">
+					<label htmlFor="items-amount" className="mb-2 text-xs">
 						Array Length: {settings.arrayLength}
 					</label>
 					<input
 						type="range"
 						name="items-amount"
 						id="items-amount"
-						className="w-full max-w-2xl"
+						className="w-full max-w-2xl form-range h-0.5 p-0"
 						defaultValue={25}
 						min={1}
 						max={100}
@@ -102,15 +127,15 @@ const NavBar = () => {
 						disabled={isSorting}
 					></input>
 				</div>
-				<div className="flex flex-col items-center w-full">
-					<label htmlFor="speed" className="mb-2">
+				<div className="flex flex-col items-center w-full gap-2">
+					<label htmlFor="speed" className="mb-2 text-xs">
 						Delay: {settings.speed}
 					</label>
 					<input
 						type="range"
 						name="speed"
 						id="speed"
-						className="w-full max-w-2xl"
+						className="w-full max-w-2xl form-range h-0.5 p-0"
 						defaultValue={2}
 						min={1}
 						max={10}
@@ -120,7 +145,7 @@ const NavBar = () => {
 				</div>
 			</div>
 
-			<div className="flex flex-row basis-1/2 items-center justify-center my-2 gap-10">
+			{/* <div className="flex flex-row basis-4/6 items-center justify-center my-2 gap-10">
 				<div className="flex flex-row items-center justify-center gap-5 ">
 					<button
 						className={`border-solid border-2 shadow-md py-2 px-4 transition-all active:scale-95 ${
@@ -131,15 +156,6 @@ const NavBar = () => {
 					>
 						Bubble Sort
 					</button>
-					{/* <button
-						className={`border-solid border-2 shadow-md py-2 px-4 transition-all active:scale-95 ${
-							settings.algoType === "selection sort" &&
-							"text-red-400 border-red-400"
-						}`}
-						onClick={() => onAlgoChange("selection sort")}
-					>
-						Selection Sort
-					</button> */}
 					<button
 						className={`border-solid border-2 shadow-md py-2 px-4 transition-all active:scale-95 ${
 							settings.algoType === "insertion sort" &&
@@ -159,6 +175,92 @@ const NavBar = () => {
 						Merge Sort
 					</button>
 				</div>
+			</div> */}
+
+			<div className="flex justify-center items-center basis-1/6 flex-col gap-2 text-xs">
+				<button
+					className={
+						isSorted ? "hidden" : !isSorting ? "hover:text-red-400" : ""
+					}
+					onClick={handleSortEvent}
+					disabled={isSorting}
+				>
+					{!isSorting ? "Sort!" : "Sorting..."}
+				</button>
+				<button
+					className={!isSorting ? "hover:text-red-400" : "hidden"}
+					onClick={shuffleArray}
+					disabled={isSorting}
+				>
+					Generate New Array!
+				</button>
+			</div>
+			<div className="flex w-56 text-right justify-end align-center basis-1/6">
+				<Menu as="div" className="relative inline-block text-left">
+					<div>
+						<Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-black rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+							Options
+							<ChevronDownIcon
+								className="w-5 h-5 ml-2 -mr-1 text-violet-200 hover:text-violet-100"
+								aria-hidden="true"
+							/>
+						</Menu.Button>
+					</div>
+					<Transition
+						as={Fragment}
+						enter="transition ease-out duration-100"
+						enterFrom="transform opacity-0 scale-95"
+						enterTo="transform opacity-100 scale-100"
+						leave="transition ease-in duration-75"
+						leaveFrom="transform opacity-100 scale-100"
+						leaveTo="transform opacity-0 scale-95"
+					>
+						<Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+							<div className="px-1 py-1 ">
+								<Menu.Item>
+									{({ active }) => (
+										<button
+											className={`${
+												active ? "bg-violet-500 text-white" : "text-gray-900"
+											} group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+											onClick={() => onAlgoChange("bubble sort")}
+										>
+											Bubble Sort
+										</button>
+									)}
+								</Menu.Item>
+							</div>
+							<div className="px-1 py-1">
+								<Menu.Item>
+									{({ active }) => (
+										<button
+											className={`${
+												active ? "bg-violet-500 text-white" : "text-gray-900"
+											} group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+											onClick={() => onAlgoChange("merge sort")}
+										>
+											Merge Sort
+										</button>
+									)}
+								</Menu.Item>
+							</div>
+							<div className="px-1 py-1">
+								<Menu.Item>
+									{({ active }) => (
+										<button
+											className={`${
+												active ? "bg-violet-500 text-white" : "text-gray-900"
+											} group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+											onClick={() => onAlgoChange("insertion sort")}
+										>
+											Insertion Sort
+										</button>
+									)}
+								</Menu.Item>
+							</div>
+						</Menu.Items>
+					</Transition>
+				</Menu>
 			</div>
 		</nav>
 	);

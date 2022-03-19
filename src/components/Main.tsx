@@ -7,7 +7,7 @@ const Main = () => {
 	const { settings } = useContext(SettingsContext);
 
 	return (
-		<section className="row-span-5 px-36 bg-gray-200 ">
+		<section className="row-span-5 px-28 bg-gray-200 ">
 			<div className="flex flex-row w-full h-full  overflow-hidden">
 				{items.map((item: number, index: number) => (
 					<div
