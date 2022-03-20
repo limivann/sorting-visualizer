@@ -122,40 +122,7 @@ const NavBar = () => {
 					></input>
 				</div>
 			</div>
-
-			{/* <div className="flex flex-row basis-4/6 items-center justify-center my-2 gap-10">
-				<div className="flex flex-row items-center justify-center gap-5 ">
-					<button
-						className={`border-solid border-2 shadow-md py-2 px-4 transition-all active:scale-95 ${
-							settings.algoType === "bubble sort" &&
-							"text-red-400 border-red-400"
-						}`}
-						onClick={() => onAlgoChange("bubble sort")}
-					>
-						Bubble Sort
-					</button>
-					<button
-						className={`border-solid border-2 shadow-md py-2 px-4 transition-all active:scale-95 ${
-							settings.algoType === "insertion sort" &&
-							"text-red-400 border-red-400"
-						}`}
-						onClick={() => onAlgoChange("insertion sort")}
-					>
-						Insertion Sort
-					</button>
-					<button
-						className={`border-solid border-2 shadow-md py-2 px-4 transition-all active:scale-95 ${
-							settings.algoType === "merge sort" &&
-							"text-red-400 border-red-400"
-						}`}
-						onClick={() => onAlgoChange("merge sort")}
-					>
-						Merge Sort
-					</button>
-				</div>
-			</div> */}
-
-			<div className="flex justify-center items-center basis-1/6 flex-col gap-2 text-xs">
+			<div className="flex justify-center items-center basis-1/6 flex-col gap-2 text-sm font-medium pl-20">
 				<button
 					className={
 						isSorted ? "hidden" : !isSorting ? "hover:text-red-400" : ""
@@ -176,7 +143,7 @@ const NavBar = () => {
 			<div className="flex w-56 text-right justify-end align-center basis-1/6">
 				<Menu as="div" className="relative inline-block text-left">
 					<div>
-						<Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-black rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+						<Menu.Button className="inline-flex justify-center tracking-widest uppercase w-full px-4 py-2 text-sm font-medium text-white bg-black rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
 							Algorithms
 							<ChevronDownIcon
 								className="w-5 h-5 ml-2 -mr-1 text-violet-200 hover:text-violet-100"
@@ -199,7 +166,7 @@ const NavBar = () => {
 									{({ active }) => (
 										<button
 											className={`${
-												active ? "bg-violet-500 text-white" : "text-gray-900"
+												active ? "bg-sky-600 text-white " : "text-gray-900 "
 											} group flex rounded-md items-center w-full px-2 py-2 text-sm`}
 											onClick={() => onAlgoChange("bubble sort")}
 										>
@@ -213,7 +180,7 @@ const NavBar = () => {
 									{({ active }) => (
 										<button
 											className={`${
-												active ? "bg-violet-500 text-white" : "text-gray-900"
+												active ? "bg-sky-600 text-white" : "text-gray-900"
 											} group flex rounded-md items-center w-full px-2 py-2 text-sm`}
 											onClick={() => onAlgoChange("merge sort")}
 										>
@@ -227,7 +194,7 @@ const NavBar = () => {
 									{({ active }) => (
 										<button
 											className={`${
-												active ? "bg-violet-500 text-white" : "text-gray-900"
+												active ? "bg-sky-600 text-white" : "text-gray-900"
 											} group flex rounded-md items-center w-full px-2 py-2 text-sm`}
 											onClick={() => onAlgoChange("insertion sort")}
 										>

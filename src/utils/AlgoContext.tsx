@@ -5,7 +5,7 @@ import {
 	getMergeSortAnimations,
 } from "./algorithms";
 
-import { colors } from "../constants";
+import { colors, animationSettings } from "../constants";
 interface Props {
 	children: React.ReactNode;
 }
@@ -147,8 +147,8 @@ const AlgoContext: React.FC<Props> = ({ children }) => {
 							setItems(newArray);
 							resolve(1);
 						}
-					}, settings.speed * 3);
-				}, settings.speed * index * 3);
+					}, settings.speed * animationSettings.speedMultiplier);
+				}, settings.speed * index * animationSettings.speedMultiplier);
 				// index = index of animate array -> larger index will be animate last
 			});
 		});
@@ -177,8 +177,8 @@ const AlgoContext: React.FC<Props> = ({ children }) => {
 							setItems(newArray);
 							resolve(1);
 						}
-					}, settings.speed * 3);
-				}, settings.speed * index * 3);
+					}, settings.speed * animationSettings.speedMultiplier);
+				}, settings.speed * index * animationSettings.speedMultiplier);
 				// index = index of animate array -> larger index will be animate last
 			});
 		});
@@ -196,7 +196,7 @@ const AlgoContext: React.FC<Props> = ({ children }) => {
 					if (idx === newArray.length - 1) {
 						resolve(1);
 					}
-				}, settings.speed * idx * 3);
+				}, settings.speed * idx * animationSettings.doneSortingSpeed);
 			});
 		});
 	};

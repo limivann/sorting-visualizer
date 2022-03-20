@@ -12,7 +12,9 @@ const Main = () => {
 				{items.map((item: number, index: number) => (
 					<div
 						key={`${item}-${settings.arrayLength}-${index}`}
-						className="flex-1 border border-white"
+						className={
+							"flex-1 " + (items.length <= 200 ? "border border-white" : "")
+						}
 						style={{
 							backgroundColor: colors.primaryBarColor,
 							height: `${item / 6}%`,
