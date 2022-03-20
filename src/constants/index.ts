@@ -1,2 +1,3 @@
 import { colors } from "./colors";
-export { colors };
+import { animationSettings } from "./animationSettings";
+export { colors, animationSettings };
