@@ -4,6 +4,8 @@ import { colors } from "../constants";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const { Wave } = require("react-animated-text");
 
 const NavBar = () => {
@@ -37,6 +39,21 @@ const NavBar = () => {
 
 	const onAlgoChange = (type: Algo) => {
 		if (!setSettings) {
+			return;
+		}
+		if (settings.algoType === type) {
+			return;
+		}
+		if (isSorting) {
+			toast.warn("Sorting in Progress... ", {
+				position: "bottom-right",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: false,
+				draggable: true,
+				progress: undefined,
+			});
 			return;
 		}
 		setSettings(prev => ({ ...prev, algoType: type }));
@@ -209,6 +226,17 @@ const NavBar = () => {
 							</div>
 						</Menu.Items>
 					</Transition>
+					<ToastContainer
+						position="bottom-right"
+						autoClose={3000}
+						hideProgressBar={false}
+						newestOnTop={false}
+						closeOnClick
+						rtl={false}
+						pauseOnFocusLoss
+						draggable
+						pauseOnHover={false}
+					/>
 				</Menu>
 			</div>
 		</nav>
