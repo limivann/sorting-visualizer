@@ -2,17 +2,19 @@
 
 ## React TypeScript app to visualize sorting algorithm with animations
 
-I built this application because I was fascinated by sorting algorithms, and I wanted to visualize them in action. 
+I built this application because I was fascinated by sorting algorithms, and I wanted to visualize them in action.
 
 #### <b>Sorting Algorithms Visualized</b>
 
 1. Bubble Sort
 2. Insertion Sort
 3. Merge Sort
+4. Quick Sort
+5. Heap Sort
 
-## Run
+## Develop
 
-To make it run properly, clone this repo and make sure you have the following prerequisites.
+To further develop this project, clone this repo and make sure you have the following prerequisites.
 
 - [Node](https://nodejs.org/en/download/) ^16.3.0
 - [npm](https://nodejs.org/en/download/package-manager/)
@@ -36,7 +38,3 @@ $ npm install
 ```terminal
 $ npm start
 ```
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE.md file for details
