@@ -3,6 +3,7 @@ import {
 	getBubbleSortAnimations,
 	getInsertionSortAnimations,
 	getMergeSortAnimations,
+	getQuickSortAnimations,
 	getHeapSortAnimations,
 } from "./algorithms";
 
@@ -116,6 +117,18 @@ const AlgoContext: React.FC<Props> = ({ children }) => {
 				break;
 			case "selection sort":
 				console.log("Starting selection sort");
+				break;
+			case "quick sort":
+				console.log("Starting quick sort");
+				const { quickSorted, quickSortedAnims } = getQuickSortAnimations(items);
+				animateSwapDivs(quickSorted, quickSortedAnims)
+					.then(() => {
+						animateDoneSorting(quickSorted);
+					})
+					.then(() => {
+						setIsSorting(false);
+						setIsSorted(true);
+					});
 				break;
 			case "heap sort":
 				console.log("Starting heap sort");
