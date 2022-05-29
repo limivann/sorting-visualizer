@@ -3,6 +3,7 @@ import {
 	getBubbleSortAnimations,
 	getInsertionSortAnimations,
 	getMergeSortAnimations,
+	getHeapSortAnimations,
 } from "./algorithms";
 
 import { colors, animationSettings } from "../constants";
@@ -14,7 +15,9 @@ export type Algo =
 	| "merge sort"
 	| "insertion sort"
 	| "bubble sort"
-	| "selection sort";
+	| "selection sort"
+	| "heap sort"
+	| "quick sort";
 
 interface Settings {
 	algoType: Algo;
@@ -113,6 +116,18 @@ const AlgoContext: React.FC<Props> = ({ children }) => {
 				break;
 			case "selection sort":
 				console.log("Starting selection sort");
+				break;
+			case "heap sort":
+				console.log("Starting heap sort");
+				const { heapSorted, heapSortedAnims } = getHeapSortAnimations(items);
+				animateSwapDivs(heapSorted, heapSortedAnims)
+					.then(() => {
+						animateDoneSorting(heapSorted);
+					})
+					.then(() => {
+						setIsSorting(false);
+						setIsSorted(true);
+					});
 				break;
 			default:
 				break;
